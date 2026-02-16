@@ -23,23 +23,23 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT R FROM Review R JOIN FETCH R.user LEFT JOIN FETCH R.photosUrl WHERE R.id = :id")
     Optional<Review> findByIdWithDetails(Long id);
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"user", "photosUrl"})
     Page<Review> findByRating(Byte rating, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"user", "photoUrl"})
     Page<Review> findByCreatedAtBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
 
     @EntityGraph(attributePaths = {"user", "photosUrl"})
     @Query("SELECT R FROM Review R WHERE R.answeredAt IS NULL")
     Page<Review> findUnansweredReviews(Pageable pageable);
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"user", "photosUrl"})
     Page<Review> findByType(ReviewType type, Pageable pageable);
 
     @EntityGraph(attributePaths = {"photosUrl", "user"})
     Page<Review> findByTypeAndEntityReviewedId(ReviewType type, Long entityReviewedId, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"user", "photosUrl"})
     Page<Review> findByCreatedAtBetweenAndType(LocalDateTime from, LocalDateTime to, ReviewType type, Pageable pageable);
 
 }

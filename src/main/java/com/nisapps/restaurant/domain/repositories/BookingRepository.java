@@ -34,6 +34,11 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByStatus(BookingStatus status);
 
+    @EntityGraph(attributePaths = {"customer", "order"})
+    @Query("SELECT B FROM Booking B WHERE B.status = 'CONFIRMED'")
+    List<Booking> findConfirmedBookings();
+
+    @EntityGraph(attributePaths = {"customer"})
     List<Booking> findByDate(LocalDate date);
 
     Page<Booking> findByDateBetween(LocalDate start, LocalDate end, Pageable pageable);
@@ -42,6 +47,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     List<Booking> findByDateAndStartHourBetween(LocalDate date, LocalTime start, LocalTime end);
 
+    @EntityGraph(attributePaths = {"customer"})
     List<Booking> findByDateAndStatus(LocalDate date, BookingStatus status);
 
     @Query(value = """
@@ -52,5 +58,5 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
                 )
             """,
             nativeQuery = true)
-    boolean isBooked(LocalDate date, LocalTime start, LocalTime end, Collection<Long> tablesIds);
+    boolean alreadyExistsABook(LocalDate date, LocalTime start, LocalTime end, Collection<Long> tablesIds);
 }

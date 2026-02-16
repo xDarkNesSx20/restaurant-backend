@@ -6,10 +6,12 @@ import com.nisapps.restaurant.domain.enums.OrderType;
 import com.nisapps.restaurant.domain.enums.PaymentMethod;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,12 +29,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByCustomer_IdAndStatus(Long customerId, OrderStatus status);
 
     @Query(value = "SELECT O FROM orders O WHERE O.created_at::date = :createdAtDate", nativeQuery = true)
-    List<Order> findByCreatedAtDate(@Param("createdAtDate") LocalDateTime createdAtDate);
+    List<Order> findByCreatedAtDate(@Param("createdAtDate") LocalDate createdAtDate);
 
     Page<Order> findByCreatedAtBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
 
     Page<Order> findByType(OrderType type, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"customer"})
     Page<Order> findByStatus(OrderStatus status, Pageable pageable);
 
     List<Order> findByCustomer_IdAndType(Long customerId, OrderType type);
@@ -41,7 +44,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Page<Order> findByPaidTrue(Pageable pageable);
 
+    @EntityGraph(attributePaths = {"customer"})
     List<Order> findByPaidFalse();
 
+    @EntityGraph(attributePaths = {"user"})
     Page<Order> findByTypeAndStatus(OrderType type, OrderStatus status, Pageable pageable);
 }
