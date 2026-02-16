@@ -33,6 +33,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     boolean existsByUser_PublicId(String userPublicId);
 
+    Optional<Long> findIdByUser_PublicId(String userPublicId);
+
     @EntityGraph(attributePaths = {"user"})
     Optional<Employee> findByUser_PublicId(String userPublicId);
 }

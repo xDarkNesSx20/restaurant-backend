@@ -34,7 +34,7 @@ public class Review {
     private User user;
 
     @Column(nullable = false)
-    private Byte rating;
+    private byte rating;
 
     private String comment;
 
@@ -51,8 +51,8 @@ public class Review {
     @Enumerated(EnumType.STRING)
     private ReviewType type;
 
-    @Column(name = "entity_reviewed_id", nullable = false)
-    private Long entityReviewedId;
+    @Column(name = "entity_reviewed_id")
+    private String entityReviewedId;
 
     @ElementCollection
     @CollectionTable(name = "review_photos", joinColumns = @JoinColumn(name = "review_id"))

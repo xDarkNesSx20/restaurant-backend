@@ -37,7 +37,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Page<Review> findByType(ReviewType type, Pageable pageable);
 
     @EntityGraph(attributePaths = {"photosUrl", "user"})
-    Page<Review> findByTypeAndEntityReviewedId(ReviewType type, Long entityReviewedId, Pageable pageable);
+    Page<Review> findByTypeAndEntityReviewedId(ReviewType type, String entityReviewedId, Pageable pageable);
 
     @EntityGraph(attributePaths = {"user", "photosUrl"})
     Page<Review> findByCreatedAtBetweenAndType(LocalDateTime from, LocalDateTime to, ReviewType type, Pageable pageable);

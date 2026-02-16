@@ -39,11 +39,11 @@ public class User {
     @Column(nullable = false, name = "password_hash")
     private String passwordHash;
 
-    @Column(unique = true, name = "phone_number")
-    private String phoneNumber;
+    @Column(nullable = false, unique = true, updatable = false, length = 10, name = "dni_number")
+    private String dniNumber;
 
-    @Column(name = "birth_date", nullable = false, updatable = false)
-    private LocalDate birthDate;
+    @Column(unique = true, name = "phone_number", length = 15)
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     private Role role;

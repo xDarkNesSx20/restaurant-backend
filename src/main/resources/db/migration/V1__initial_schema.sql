@@ -83,7 +83,7 @@ CREATE TABLE users
     email         VARCHAR     UNIQUE NOT NULL,
     password_hash VARCHAR(16)        NOT NULL,
     phone         VARCHAR(15) UNIQUE,
-    birth_date    DATE               NOT NULL,
+    dni_number    VARCHAR(10) UNIQUE NOT NULL,
     created_at    TIMESTAMP          NOT NULL,
     active        BOOLEAN            NOT NULL DEFAULT TRUE,
     role          Role               NOT NULL,
@@ -190,7 +190,7 @@ CREATE TABLE reviews
     admin_answer       TEXT,
     answered_at        TIMESTAMP,
     type               ReviewType         NOT NULL,
-    entity_reviewed_id BIGINT             NOT NULL,
+    entity_reviewed_id VARCHAR,
     CONSTRAINT fk_user_reviews FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
