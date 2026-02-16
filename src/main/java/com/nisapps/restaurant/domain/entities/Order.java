@@ -41,14 +41,15 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     @Builder.Default
-    private OrderStatus orderStatus = OrderStatus.CONFIRMED;
+    private OrderStatus status = OrderStatus.CONFIRMED;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderType type;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal total;
+    @Builder.Default
+    private BigDecimal total = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "payment_method")

@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -39,13 +40,13 @@ public class Review {
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "admin_answer")
     private String adminAnswer;
 
     @Column(name = "answered_at")
-    private OffsetDateTime answeredAt;
+    private LocalDateTime answeredAt;
 
     @Enumerated(EnumType.STRING)
     private ReviewType type;
@@ -53,7 +54,7 @@ public class Review {
     @Column(name = "entity_reviewed_id", nullable = false)
     private Long entityReviewedId;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     @CollectionTable(name = "review_photos", joinColumns = @JoinColumn(name = "review_id"))
     @Column(name = "photo_url")
     private Set<String> photosUrl;

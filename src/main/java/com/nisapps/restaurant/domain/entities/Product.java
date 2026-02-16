@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.text.Normalizer;
 
 @Data
 @Entity
@@ -21,7 +22,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
     @Column(nullable = false)
@@ -45,19 +46,14 @@ public class Product {
     private String photoUrl;
 
     @PrePersist
-    @PreUpdate
     protected void generateSlug(){
         if (this.slug.isBlank()){
-            this.slug = this.name.toLowerCase()
+            var normalized = Normalizer.normalize(this.name, Normalizer.Form.NFD);
+            var cleaned = normalized.replaceAll("\\p{M}", "");
+            this.slug = cleaned.toLowerCase()
                     .replaceAll("[^a-z0-9\\s-]", "")
                     .replaceAll("\\s+", "-")
-                    .replaceAll("-+", "-")
-                    .replaceAll("á", "a")
-                    .replaceAll("é", "e")
-                    .replaceAll("í", "i")
-                    .replaceAll("ó", "o")
-                    .replaceAll("ú", "u")
-                    .replaceAll("ñ", "n");
+                    .replaceAll("-+", "-");
         }
     }
 }

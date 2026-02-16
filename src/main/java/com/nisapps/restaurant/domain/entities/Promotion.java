@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -38,10 +39,10 @@ public class Promotion {
     private Integer discountPercent;
 
     @Column(name = "start_at", nullable = false)
-    private OffsetDateTime startAt;
+    private LocalDateTime startAt;
 
     @Column(name = "end_at", nullable = false)
-    private OffsetDateTime endAt;
+    private LocalDateTime endAt;
 
     @Builder.Default
     private Boolean active = true;
