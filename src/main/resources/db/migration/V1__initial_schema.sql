@@ -223,8 +223,8 @@ CREATE TABLE turns
 (
     id          BIGSERIAL PRIMARY KEY,
     employee_id BIGINT   NOT NULL,
-    start_hour  TIME     NOT NULL,
-    end_hour    TIME     NOT NULL,
+    start_time  TIME     NOT NULL,
+    end_time    TIME     NOT NULL,
     day         WeekDays NOT NULL,
     CONSTRAINT fk_employee_turns FOREIGN KEY (employee_id) REFERENCES employees (id)
 );

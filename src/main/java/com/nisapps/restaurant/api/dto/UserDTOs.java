@@ -9,17 +9,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class UserDTOs {
-    public record UserCreateRequest(@NotBlank String name, @NotBlank @Size(min = 2) String surname,
-                                    @NotBlank @Email String email,
-                                    @NotBlank @Size(min = 8, max = 24) String password,
-                                    @NotBlank @Size(max = 10) String dniNumber,
-                                    @Size(min = 10, max = 15) String phoneNumber, @NotBlank String role,
-                                    String profilePhotoUrl) implements Serializable {
+    public record UserUpdateRequest(String name, String surname,
+                                    @Size(min = 10, max = 15) String phoneNumber) implements Serializable {
     }
 
-    public record UserUpdateRequest(String name, String surname, @Size(min = 8, max = 24) String password,
-                                    @Size(min = 10, max = 15) String phoneNumber,
-                                    String profilePhotoUrl) implements Serializable {
+    public record UserChangePasswordRequest(@NotBlank @Size(min = 8, max = 24) String oldPassword,
+                                            @NotBlank @Size(min = 8, max = 24) String newPassword) implements Serializable {
     }
 
     public record UserResponse(String publicId, String name, String surname, String email, String dniNumber,

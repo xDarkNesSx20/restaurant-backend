@@ -23,5 +23,5 @@ public interface TurnRepository extends JpaRepository<Turn, Long> {
     List<Turn> findByDay(WeekDay day);
 
     @EntityGraph(attributePaths = {"employee", "employee.user"})
-    List<Turn> findByDayAndStartHourBetween(WeekDay day, LocalTime from, LocalTime to);
+    List<Turn> findByDayAndStartTimeBetween(WeekDay day, LocalTime from, LocalTime to);
 }

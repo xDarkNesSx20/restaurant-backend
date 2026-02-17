@@ -10,21 +10,21 @@ import com.nisapps.restaurant.api.dto.EmployeeDTOs.EmployeeResponse;
 
 public class TurnDTOs {
     public record TurnCreateRequest(@NotBlank String day,
-                                    @NotNull @JsonFormat(pattern = "HH:mm:ss") LocalTime startHour,
-                                    @NotNull @JsonFormat(pattern = "HH:mm:ss") LocalTime endHour) implements Serializable {
+                                    @NotNull @JsonFormat(pattern = "HH:mm:ss") LocalTime startTime,
+                                    @NotNull @JsonFormat(pattern = "HH:mm:ss") LocalTime endTime) implements Serializable {
     }
 
-    public record TurnUpdateRequest(@JsonFormat(pattern = "HH:mm:ss") LocalTime startHour,
-                                    @JsonFormat(pattern = "HH:mm:ss") LocalTime endHour) implements Serializable {
+    public record TurnUpdateRequest(String day, @JsonFormat(pattern = "HH:mm:ss") LocalTime startTime,
+                                    @JsonFormat(pattern = "HH:mm:ss") LocalTime endTime) implements Serializable {
     }
 
-    public record TurnResponse(Long id, String employeeUserPublicId, String day,
-                               @JsonFormat(pattern = "HH:mm:ss") LocalTime startHour,
-                               @JsonFormat(pattern = "HH:mm:ss") LocalTime endHour) implements Serializable {
+    public record TurnResponse(Long id, String employeePublicId, String day,
+                               @JsonFormat(pattern = "HH:mm:ss") LocalTime startTime,
+                               @JsonFormat(pattern = "HH:mm:ss") LocalTime endTime) implements Serializable {
     }
 
     public record TurnFullResponse(Long id, EmployeeResponse employee, String day,
-                               @JsonFormat(pattern = "HH:mm:ss") LocalTime startHour,
-                               @JsonFormat(pattern = "HH:mm:ss") LocalTime endHour) implements Serializable {
+                               @JsonFormat(pattern = "HH:mm:ss") LocalTime startTime,
+                               @JsonFormat(pattern = "HH:mm:ss") LocalTime endTime) implements Serializable {
     }
 }

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class ProductDTOs {
     public record ProductCreateRequest(@NotBlank String name, @NotBlank String description,
                                        @Positive @NotNull BigDecimal price,
-                                       @NotBlank String category, String photoUrl) implements Serializable {
+                                       @NotBlank String category, @NotBlank String photoUrl) implements Serializable {
     }
 
     public record ProductUpdateRequest(String description, @Positive BigDecimal price, boolean available,
