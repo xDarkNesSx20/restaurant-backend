@@ -3,6 +3,7 @@ package com.nisapps.restaurant.domain.repositories;
 import com.nisapps.restaurant.domain.entities.Employee;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
@@ -23,9 +24,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     @EntityGraph(attributePaths = {"user"})
     List<Employee> findBySalaryLessThanEqual(BigDecimal maxSalary);
 
-    @Override
+    @Query("SELECT E FROM Employee E WHERE E.id = :id")
     @EntityGraph(attributePaths = {"user"})
-    Optional<Employee> findById(@Param("id") Long id);
+    Optional<Employee> findByIdWIthDetails(@Param("id") Long id);
 
     @Override
     @EntityGraph(attributePaths = {"user"})

@@ -26,6 +26,7 @@ public class Turn {
     private Employee employee;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private WeekDay day;
 
     @Column(name = "start_hour", nullable = false)

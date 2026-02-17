@@ -2,6 +2,7 @@ package com.nisapps.restaurant.domain.repositories;
 
 import com.nisapps.restaurant.domain.entities.Turn;
 import com.nisapps.restaurant.domain.enums.WeekDay;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +19,9 @@ public interface TurnRepository extends JpaRepository<Turn, Long> {
 
     Optional<Turn> findByEmployee_IdAndDay(Long employeeId, WeekDay day);
 
+    @EntityGraph(attributePaths = {"employee", "employee.user"})
     List<Turn> findByDay(WeekDay day);
 
+    @EntityGraph(attributePaths = {"employee", "employee.user"})
     List<Turn> findByDayAndStartHourBetween(WeekDay day, LocalTime from, LocalTime to);
 }

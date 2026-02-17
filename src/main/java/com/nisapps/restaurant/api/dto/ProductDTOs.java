@@ -20,4 +20,6 @@ public class ProductDTOs {
     public record ProductResponse(String slug, String name, String description, BigDecimal price, String category,
                                   boolean available, String photoUrl) implements Serializable {
     }
+
+    public record ProductSummary(String slug, String name, String category) implements Serializable {}
 }

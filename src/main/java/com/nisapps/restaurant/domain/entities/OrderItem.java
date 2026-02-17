@@ -24,7 +24,7 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY,  optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -35,7 +35,8 @@ public class OrderItem {
     private BigDecimal unitPrice;
 
     @Column(precision = 10, scale = 2)
-    private BigDecimal subtotal;
+    @Builder.Default
+    private BigDecimal subtotal = BigDecimal.ZERO;
 
     private String note;
 }

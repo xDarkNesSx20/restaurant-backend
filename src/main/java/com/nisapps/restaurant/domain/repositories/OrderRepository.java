@@ -28,10 +28,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByCustomer_IdAndStatus(Long customerId, OrderStatus status);
 
+    @EntityGraph(attributePaths = {"customer"})
     @Query(value = "SELECT O FROM orders O WHERE O.created_at::date = :createdAtDate", nativeQuery = true)
     List<Order> findByCreatedAtDate(@Param("createdAtDate") LocalDate createdAtDate);
 
     Page<Order> findByCreatedAtBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
+
+    List<Order> findByGivenAtBetween(LocalDateTime from, LocalDateTime to);
 
     Page<Order> findByType(OrderType type, Pageable pageable);
 
@@ -47,6 +50,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @EntityGraph(attributePaths = {"customer"})
     List<Order> findByPaidFalse();
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"customer"})
     Page<Order> findByTypeAndStatus(OrderType type, OrderStatus status, Pageable pageable);
 }

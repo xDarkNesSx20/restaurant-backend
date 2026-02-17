@@ -17,10 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    @Query("SELECT B.id FROM Booking B WHERE B.publicId = :publicId")
-    Optional<Long> findIdByPublicId(@Param("publicId") String publicId);
-
-    boolean existsByPublicId(String publicId);
+    List<Booking> findByCustomer_Id(Long customerId);
 
     @EntityGraph(attributePaths = {"customer", "order", "tables"})
     @Query("SELECT B FROM Booking B WHERE B.id = :id")
@@ -30,29 +27,36 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     @Query("SELECT B FROM Booking B")
     Page<Booking> findAllWithDetails(Pageable pageable);
 
-    List<Booking> findByCustomer_Id(Long customerId);
-
-    List<Booking> findByStatus(BookingStatus status);
-
     @EntityGraph(attributePaths = {"customer", "order"})
     @Query("SELECT B FROM Booking B WHERE B.status = 'CONFIRMED'")
     List<Booking> findConfirmedBookings();
 
     @EntityGraph(attributePaths = {"customer"})
+    List<Booking> findByStatus(BookingStatus status);
+
+    @EntityGraph(attributePaths = {"customer"})
     List<Booking> findByDate(LocalDate date);
 
+    @EntityGraph(attributePaths = {"customer"})
     Page<Booking> findByDateBetween(LocalDate start, LocalDate end, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"customer"})
     Page<Booking> findByCreatedAtBetween(LocalDateTime from, LocalDateTime to, Pageable pageable);
 
-    List<Booking> findByDateAndStartHourBetween(LocalDate date, LocalTime start, LocalTime end);
+    @EntityGraph(attributePaths = {"customer"})
+    List<Booking> findByDateAndStartTimeBetween(LocalDate date, LocalTime start, LocalTime end);
 
     @EntityGraph(attributePaths = {"customer"})
     List<Booking> findByDateAndStatus(LocalDate date, BookingStatus status);
 
+    @Query("SELECT B.id FROM Booking B WHERE B.publicId = :publicId")
+    Optional<Long> findIdByPublicId(@Param("publicId") String publicId);
+
+    boolean existsByPublicId(String publicId);
+
     @Query(value = """
                 SELECT EXISTS(
-                    SELECT 1 FROM bookings B WHERE B.date = :date AND B.start_hour BETWEEN :start AND :end
+                    SELECT 1 FROM bookings B WHERE B.date = :date AND B.start_time BETWEEN :start AND :end
                         AND B.status NOT IN ('CANCELLED', 'NO_SHOW')
                         AND (SELECT BT.table_id FROM booking_tables WHERE BT.booking_id = B.id) && :tablesIds
                 )

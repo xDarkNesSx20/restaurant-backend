@@ -43,6 +43,9 @@ public class Order {
     @Builder.Default
     private OrderStatus status = OrderStatus.CONFIRMED;
 
+    @Column(name = "given_at", updatable = false)
+    private LocalDateTime givenAt;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OrderType type;
@@ -70,7 +73,7 @@ public class Order {
     private Set<Table> tables = new HashSet<>();
 
     @PrePersist
-    public void onCreate(){
+    public void onCreate() {
         this.publicId = UUID.randomUUID().toString().substring(0, 16);
     }
 }

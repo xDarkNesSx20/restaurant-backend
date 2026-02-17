@@ -40,11 +40,11 @@ public class Booking {
     @Column(nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false, name = "start_hour")
-    private LocalTime startHour;
+    @Column(nullable = false, name = "start_time")
+    private LocalTime startTime;
 
-    @Column(nullable = false, name = "end_hour")
-    private LocalTime endHour;
+    @Column(nullable = false, name = "end_time")
+    private LocalTime endTime;
 
     @Column(nullable = false, name = "num_people")
     private Integer numPeople;

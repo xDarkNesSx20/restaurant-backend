@@ -1,5 +1,6 @@
 package com.nisapps.restaurant.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -22,8 +23,8 @@ public class UserDTOs {
     }
 
     public record UserResponse(String publicId, String name, String surname, String email, String dniNumber,
-                               String phoneNumber,
-                               String role, String profilePhotoUrl, LocalDateTime createdAt,
+                               String phoneNumber, String role, String profilePhotoUrl,
+                               @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime createdAt,
                                boolean active) implements Serializable {
     }
 
@@ -31,7 +32,7 @@ public class UserDTOs {
                               String role, String profilePhotoUrl) implements Serializable {
     }
 
-    public record UserReviewSummary(String publicId, String name, String surname,
+    public record UserSimpleSummary(String publicId, String name, String surname,
                                     String profilePhotoUrl) implements Serializable {
     }
 }
