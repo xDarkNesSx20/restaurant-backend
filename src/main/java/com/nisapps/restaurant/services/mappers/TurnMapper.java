@@ -17,8 +17,10 @@ public interface TurnMapper {
     void patch(TurnUpdateRequest request, @MappingTarget Turn entity);
 
     @Mapping(target = "employeePublicId", source = "employee.user.publicId")
+    @Mapping(target = "day", source = "day")
     TurnResponse toResponse(Turn entity);
 
     @Mapping(target = "employee", source = "employee")
+    @Mapping(target = "day", source = "day")
     TurnFullResponse toFullResponse(Turn entity);
 }

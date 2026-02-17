@@ -16,6 +16,7 @@ public interface TableMapper {
     @Mapping(target = "id", ignore = true)
     void patch(TableUpdateRequest request, @MappingTarget Table table);
 
+    @Mapping(target = "type", source = "type")
     TableResponse toResponse(Table table);
 
     Set<TableResponse> toSetResponse(Set<Table> tables);
